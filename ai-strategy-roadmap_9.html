@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Strategy & Implementation — Industry Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue: #0A3B85;
+  --dark: #051C2B;
+  --teal: #00A3AD;
+  --gold: #FFCC00;
+  --orange: #ED8B00;
+  --purple: #6D2077;
+  --green: #00875a;
+  --bg: #f4f7fb;
+  --surface: #fff;
+  --border: #dce3ef;
+  --muted: #5a6a82;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--dark); font-family:'Source Sans 3',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+/* Header */
+.header-img { width:100%; display:block; height:auto; }
+
+/* Pages */
+#landing { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - 80px); padding:60px 24px; text-align:center; }
+#roadmap  { display:none; }
+
+/* Landing */
+.kicker { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+.landing-title { font-family:'Merriweather',serif; font-size:clamp(24px,4vw,40px); font-weight:700; color:var(--blue); margin-bottom:10px; }
+.landing-sub { font-size:15px; color:var(--muted); font-weight:300; line-height:1.7; max-width:520px; margin-bottom:40px; }
+
+.card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:36px 44px; box-shadow:0 4px 32px rgba(10,59,133,.08); width:100%; max-width:460px; }
+.select-label { font-size:12px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; text-align:left; }
+.card select { width:100%; padding:12px 16px; border:2px solid var(--border); border-radius:8px; font-family:'Source Sans 3',sans-serif; font-size:15px; color:var(--dark); background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230A3B85' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center; appearance:none; cursor:pointer; transition:border-color .2s; }
+.card select:focus { outline:none; border-color:var(--blue); }
+.go-btn { margin-top:18px; width:100%; padding:14px; background:var(--blue); color:#fff; border:none; border-radius:8px; font-family:'Source Sans 3',sans-serif; font-size:15px; font-weight:600; cursor:pointer; transition:background .2s, opacity .2s; }
+.go-btn:hover:not(:disabled) { background:#0c4aa8; }
+.go-btn:disabled { opacity:.4; cursor:not-allowed; background:#6b7c99; }
+
+/* Roadmap */
+.roadmap-wrap { max-width:1100px; margin:0 auto; width:100%; padding:40px 28px 60px; }
+.rm-header { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:36px; }
+.back-btn { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--blue); background:none; border:1px solid var(--border); border-radius:6px; padding:7px 14px; cursor:pointer; font-family:'Source Sans 3',sans-serif; transition:background .2s; }
+.back-btn:hover { background:#e8eef8; border-color:var(--blue); }
+.rm-eyebrow { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--teal); margin-bottom:8px; }
+.rm-title { font-family:'Merriweather',serif; font-size:clamp(20px,3vw,32px); font-weight:700; color:var(--blue); line-height:1.2; }
+.rm-title span { color:var(--orange); font-style:italic; }
+.rm-sub { font-size:13px; color:var(--muted); font-weight:300; line-height:1.7; max-width:600px; margin-top:8px; }
+
+/* Phase timeline */
+.phases { display:flex; flex-direction:column; }
+.phase { display:grid; grid-template-columns:130px 36px 1fr; gap:0 18px; align-items:stretch; }
+
+.phase-label { display:flex; flex-direction:column; justify-content:flex-start; padding-top:18px; padding-right:10px; text-align:right; }
+.phase-num { font-family:'Merriweather',serif; font-size:30px; font-weight:700; color:#dce3ef; line-height:1; }
+.phase-tag { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-top:4px; }
+.phase-time { font-size:11px; color:var(--muted); margin-top:2px; }
+
+.spine { display:flex; flex-direction:column; align-items:center; }
+.dot { width:16px; height:16px; border-radius:50%; border:2px solid; margin-top:20px; flex-shrink:0; position:relative; }
+.dot::after { content:''; position:absolute; inset:3px; border-radius:50%; }
+.spine-line { width:2px; flex:1; background:var(--border); margin-top:4px; }
+.phase:last-child .spine-line { display:none; }
+
+.phase-content { padding:18px 0 28px; }
+.phase-title { font-family:'Merriweather',serif; font-size:17px; font-weight:700; color:var(--blue); margin-bottom:5px; }
+.phase-summary { font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:14px; max-width:680px; }
+.actions-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px; }
+.action-card { background:var(--surface); border:1px solid var(--border); border-left:3px solid; border-radius:8px; padding:14px 16px; transition:box-shadow .2s,transform .2s; }
+.action-card:hover { box-shadow:0 4px 16px rgba(10,59,133,.1); transform:translateY(-2px); }
+.action-icon { font-size:18px; margin-bottom:7px; display:block; }
+.action-title { font-size:13px; font-weight:700; color:var(--blue); margin-bottom:4px; line-height:1.35; }
+.action-desc { font-size:12px; color:var(--muted); line-height:1.55; }
+.outcome { margin-top:12px; display:inline-flex; align-items:center; gap:7px; padding:5px 12px; border-radius:20px; font-size:11.5px; font-weight:600; border:1px solid; }
+
+/* Phase colour themes */
+.ph1 .phase-tag,.ph1 .dot { color:var(--blue); border-color:var(--blue); }
+.ph1 .dot::after { background:var(--blue); }
+.ph1 .action-card { border-left-color:var(--blue); }
+.ph1 .outcome { border-color:var(--blue); color:var(--blue); background:rgba(10,59,133,.06); }
+
+.ph2 .phase-tag { color:var(--teal); }
+.ph2 .dot { border-color:var(--teal); }
+.ph2 .dot::after { background:var(--teal); }
+.ph2 .action-card { border-left-color:var(--teal); }
+.ph2 .outcome { border-color:var(--teal); color:var(--teal); background:rgba(0,163,173,.06); }
+
+.ph3 .phase-tag { color:var(--orange); }
+.ph3 .dot { border-color:var(--orange); }
+.ph3 .dot::after { background:var(--orange); }
+.ph3 .action-card { border-left-color:var(--orange); }
+.ph3 .outcome { border-color:var(--orange); color:var(--orange); background:rgba(237,139,0,.06); }
+
+.ph4 .phase-tag { color:var(--purple); }
+.ph4 .dot { border-color:var(--purple); }
+.ph4 .dot::after { background:var(--purple); }
+.ph4 .action-card { border-left-color:var(--purple); }
+.ph4 .outcome { border-color:var(--purple); color:var(--purple); background:rgba(109,32,119,.06); }
+
+.ph5 .phase-tag { color:var(--green); }
+.ph5 .dot { border-color:var(--green); }
+.ph5 .dot::after { background:var(--green); }
+.ph5 .action-card { border-left-color:var(--green); }
+.ph5 .outcome { border-color:var(--green); color:var(--green); background:rgba(0,135,90,.06); }
+
+@media(max-width:600px){
+  .phase{grid-template-columns:72px 24px 1fr;gap:0 10px;}
+  .phase-num{font-size:22px;}
+  .actions-grid{grid-template-columns:1fr;}
+  .card{padding:28px 20px;}
+}
+
+
+/* ── Name / Company fields ── */
+.field-row { margin-bottom:14px; }
+.field-row label { display:block; font-size:12px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.field-row label span.req { color:#c0392b; margin-left:2px; }
+.field-row input {
+  width:100%; padding:11px 14px;
+  border:2px solid var(--border); border-radius:8px;
+  font-family:'Source Sans 3',sans-serif; font-size:14px; color:var(--dark);
+  background:#fff; transition:border-color .2s;
+}
+.field-row input:focus { outline:none; border-color:var(--blue); }
+.field-row input.error { border-color:#c0392b; }
+
+/* ── Notes textarea ── */
+.notes-wrap { margin-top:14px; }
+.notes-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px; display:block; }
+.notes-area {
+  width:100%; min-height:72px; padding:10px 12px;
+  border:1px solid var(--border); border-radius:6px;
+  font-family:'Source Sans 3',sans-serif; font-size:12.5px; color:var(--dark);
+  background:#fafbfd; resize:vertical; transition:border-color .2s;
+  line-height:1.55;
+}
+.notes-area:focus { outline:none; border-color:var(--blue); background:#fff; }
+.notes-area::placeholder { color:#aab4c4; }
+
+/* ── Action bar at bottom of roadmap ── */
+.action-bar {
+  display:flex; gap:12px; flex-wrap:wrap;
+  margin-top:40px; padding-top:28px;
+  border-top:2px solid var(--border);
+  align-items:center;
+}
+.action-bar .attendee-info {
+  font-size:13px; color:var(--muted); flex:1;
+  min-width:200px;
+}
+.action-bar .attendee-info strong { color:var(--blue); }
+
+.btn-save {
+  padding:12px 24px; border-radius:8px; border:2px solid var(--blue);
+  background:#fff; color:var(--blue);
+  font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:700;
+  cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:8px;
+}
+.btn-save:hover { background:var(--blue); color:#fff; }
+
+.btn-submit {
+  padding:12px 24px; border-radius:8px; border:none;
+  background:var(--blue); color:#fff;
+  font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:700;
+  cursor:pointer; transition:background .2s; display:flex; align-items:center; gap:8px;
+}
+.btn-submit:hover { background:#0c4aa8; }
+.btn-submit:disabled { opacity:.5; cursor:not-allowed; }
+
+.submit-status { font-size:12px; margin-top:8px; width:100%; text-align:right; }
+.submit-status.ok  { color:#00875a; }
+.submit-status.err { color:#c0392b; }
+
+/* ── Print / PDF styles ── */
+@media print {
+  .back-btn, .action-bar .btn-save, .action-bar .btn-submit { display:none; }
+  .notes-area { border:1px solid #ccc; min-height:40px; }
+  body { background:#fff; }
+}
+</style>
+</head>
+<body>
+
+<img src="data:image/png;base64,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" alt="Henley Business School" class="header-img">
+
+<!-- LANDING PAGE -->
+<div id="landing">
+  <div class="kicker">AI Strategy &amp; Implementation &middot; Programme Tool</div>
+  <h1 class="landing-title">Your AI Roadmap</h1>
+  <p class="landing-sub">Enter your details and select your industry to explore a tailored 18-month AI action plan built around the five strategic phases covered in this programme.</p>
+  <div class="card">
+    <div class="field-row">
+      <label for="attendeeName">Your Name <span class="req">*</span></label>
+      <input type="text" id="attendeeName" placeholder="e.g. Jane Smith" autocomplete="name">
+    </div>
+    <div class="field-row">
+      <label for="attendeeCompany">Your Organisation <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <input type="text" id="attendeeCompany" placeholder="e.g. Acme Ltd" autocomplete="organization">
+    </div>
+    <div class="select-label" style="margin-top:6px;">Select your industry</div>
+    <select id="industrySelect">
+      <option value="" disabled selected>— Choose an industry —</option>
+      <option value="appliance">Appliance &amp; Consumer Electronics Retail</option>
+      <option value="charity">Charity &amp; Not-for-Profit</option>
+      <option value="coaching">Coaching, Search &amp; Business Services</option>
+      <option value="insurance">Insurance</option>
+    </select>
+    <button class="go-btn" id="goBtn" onclick="tryShowRoadmap()">View My Roadmap &rarr;</button>
+    <div id="landing-error" style="color:#c0392b;font-size:12px;margin-top:8px;display:none;">Please enter your name and select an industry.</div>
+  </div>
+</div>
+
+<!-- ROADMAP PAGE -->
+<div id="roadmap">
+  <div class="roadmap-wrap">
+    <div class="rm-header">
+      <div>
+        <div class="rm-eyebrow">Managing Director &middot; Strategic Roadmap</div>
+        <h1 class="rm-title" id="rm-title"></h1>
+        <p class="rm-sub" id="rm-sub"></p>
+      </div>
+      <button class="back-btn" onclick="showLanding()">&larr; Change Industry</button>
+    </div>
+    <div class="phases" id="phases-container"></div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <div class="attendee-info" id="action-attendee-info"></div>
+      <button class="btn-save" onclick="saveReport()">&#128190; Save Report (PDF)</button>
+      <button class="btn-submit" id="submitBtn" onclick="submitToSheets()">&#9650; Submit to Google Sheets</button>
+    </div>
+    <div class="submit-status" id="submitStatus"></div>
+  </div>
+</div>
+
+<script>
+// ── Google Apps Script URL — replace with your deployed Web App URL ──
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBFhyhqFE5gvT4hnWhSr41_H5cAmJPDNJQok-UB59Izy1zTY76ZOUm4Ji18hKQoEpyhQ/exec';
+
+
+
+// ─── INDUSTRY DATA ───────────────────────────────────────────────────────────
+
+const industries = {
+
+  appliance: {
+    title: `Introducing AI into <span>Appliance &amp; Electronics Retail</span>`,
+    subtitle: `A phased action plan for the MD to move from AI curiosity to competitive advantage — transforming inventory, customer experience, and marketing operations.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `Before committing budget, audit where AI can genuinely create value. Ground decisions in real operational and customer data.`,
+        actions: [
+          { icon: `🗺️`, title: `Map the retail value chain`, desc: `Identify every process from buying & stock ordering to post-sale service. Mark manual, repetitive, or data-heavy steps as AI candidates.` },
+          { icon: `📊`, title: `Audit data maturity`, desc: `Assess what data exists — POS, inventory, CRM, warranty claims — and its quality. AI is only as good as the data fed to it.` },
+          { icon: `🧑‍💼`, title: `Benchmark competitor AI use`, desc: `Research how larger retailers are deploying AI. Identify gaps and threats to your current operating model.` },
+          { icon: `💬`, title: `Front-line listen sessions`, desc: `Store managers, buyers, and call centre agents know where the pain is. Capture their friction points — these become the AI use-case shortlist.` },
+        ],
+        outcome: `A prioritised longlist of 8–12 AI opportunities`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `AI initiatives fail without internal alignment. The MD must personally lead the narrative — treating this as business transformation, not an IT project.`,
+        actions: [
+          { icon: `🏛️`, title: `Form an AI steering group`, desc: `Bring together heads of Buying, Ops, Marketing, IT and Finance. Give it real decision authority, not advisory status.` },
+          { icon: `🎯`, title: `Select 2–3 pilot use cases`, desc: `From the longlist, choose initiatives with high ROI, manageable risk, and quick time-to-value. Resist boiling the ocean.` },
+          { icon: `💰`, title: `Ring-fence an AI budget`, desc: `Separate from the IT operational budget. Even a modest seed investment signals seriousness and enables pilots to move fast.` },
+          { icon: `📣`, title: `Communicate the "why" to all staff`, desc: `Address fears about job automation head-on. Frame AI as augmenting roles. Run town halls and share a clear vision document.` },
+        ],
+        outcome: `Aligned leadership, defined pilots, approved budget`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Controlled experiments in real operational conditions. These three areas typically offer the highest early return for appliance retailers.`,
+        actions: [
+          { icon: `📦`, title: `AI demand forecasting`, desc: `Pilot AI-assisted inventory planning for one category (e.g. washing machines). Reduce overstock and out-of-stock events. Integrate with existing ERP.` },
+          { icon: `🤖`, title: `AI-powered customer service`, desc: `Deploy a trained chatbot for order tracking, warranty queries, and product FAQs. Reduce call centre volume while improving 24/7 response.` },
+          { icon: `🎨`, title: `AI content & personalisation`, desc: `Use AI to generate product descriptions, email campaigns, and personalised recommendations — freeing marketing for strategy.` },
+          { icon: `📐`, title: `Define measurable KPIs upfront`, desc: `Each pilot needs clear metrics: cost saved, hours freed, conversion uplift, NPS change. Without pre-agreed measures, pilots become vanity projects.` },
+        ],
+        outcome: `Live pilots with tracked ROI signals within 90 days`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works & Build Capability`,
+        summary: `Successful pilots get expanded. The MD's focus shifts to embedding AI into operating rhythm and building durable internal capability.`,
+        actions: [
+          { icon: `🔁`, title: `Roll out proven pilots org-wide`, desc: `Expand demand forecasting across all categories. Extend chatbot to full customer journey. Apply pilot learnings to accelerate deployment.` },
+          { icon: `🧠`, title: `Launch AI literacy programme`, desc: `Structured upskilling across all functions — not just IT. Every team must understand how to prompt, evaluate, and work alongside AI tools.` },
+          { icon: `🏗️`, title: `Build internal AI ownership`, desc: `Hire or develop a Head of Data & AI. Reduce dependency on external vendors for day-to-day operations and model maintenance.` },
+          { icon: `🔒`, title: `Establish AI governance policy`, desc: `Define which decisions require human sign-off, data privacy rules, bias auditing, and how AI errors are escalated and corrected.` },
+        ],
+        outcome: `AI embedded in core operations; internal capability growing`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as an AI-Native Retailer`,
+        summary: `The MD now uses AI as a genuine source of competitive differentiation — beyond operational efficiency.`,
+        actions: [
+          { icon: `🔮`, title: `AI-informed strategic planning`, desc: `Use AI to synthesise market data, customer signals, and competitive intelligence to shape annual strategy — not just spreadsheets.` },
+          { icon: `🌐`, title: `Next-gen customer experiences`, desc: `AI-driven in-store product matching, smart home integration advisory, and predictive maintenance contracts — new revenue and loyalty models.` },
+          { icon: `📈`, title: `AI ROI at board level`, desc: `Report AI impact as a core business metric: revenue influenced, cost avoided, customer satisfaction delta, and speed of decision-making.` },
+          { icon: `♻️`, title: `Continuous learning loop`, desc: `Institutionalise a quarterly AI review: retire underperforming tools, adopt emerging capabilities, keep the organisation ahead of the curve.` },
+        ],
+        outcome: `AI as a sustainable competitive advantage`
+      }
+    ]
+  },
+
+  charity: {
+    title: `Introducing AI into <span>Charity &amp; Not-for-Profit</span>`,
+    subtitle: `A phased action plan for the CEO or Director to introduce AI responsibly — maximising mission impact, donor stewardship, and operational efficiency within constrained budgets.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `With limited resources, charities must be selective. Prioritise AI opportunities that amplify mission impact and relieve staff from high-effort, low-value work.`,
+        actions: [
+          { icon: `🗺️`, title: `Map mission-critical processes`, desc: `Document every process from donor acquisition to programme delivery and reporting. Flag where staff time is consumed by manual, repetitive work.` },
+          { icon: `📊`, title: `Audit your data assets`, desc: `Assess donor CRM quality, programme outcome data, and beneficiary records. Many charities sit on underused data that could drive better decisions.` },
+          { icon: `🤝`, title: `Benchmark sector peers`, desc: `Review how comparable charities are using AI for fundraising, volunteer coordination, and impact reporting. Avoid reinventing what already works.` },
+          { icon: `💬`, title: `Staff and volunteer listen sessions`, desc: `Frontline programme staff and fundraisers know where time is wasted. Their input shapes a use-case shortlist grounded in operational reality.` },
+        ],
+        outcome: `A prioritised shortlist of 6–10 mission-aligned AI opportunities`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `Trustees, funders, and staff all need confidence in your approach. Position AI as a tool to do more good — not to cut headcount or compromise values.`,
+        actions: [
+          { icon: `🏛️`, title: `Form a small AI working group`, desc: `Include senior programme leads, fundraising, IT or digital, and a trustee. Keep it lean and empowered to make real decisions quickly.` },
+          { icon: `🎯`, title: `Choose 2 high-impact pilots`, desc: `Prioritise initiatives with clear impact on mission delivery or fundraising efficiency. Avoid tech-for-tech's-sake proposals that won't land with trustees.` },
+          { icon: `💰`, title: `Identify funding for AI investment`, desc: `Explore grant funding, capacity-building programmes, or tech charity schemes (e.g. Microsoft Nonprofit, Google.org). AI need not mean large CAPEX.` },
+          { icon: `📣`, title: `Communicate values alignment`, desc: `Make clear to staff, volunteers, and donors that AI use is ethical, transparent, and in service of the charity's mission — not a cost-cutting exercise.` },
+        ],
+        outcome: `Trustee-backed mandate, pilot plan, and funding secured`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Start with pilots that free up staff time or directly improve donor relationships. These areas offer the most immediate return for charities.`,
+        actions: [
+          { icon: `💌`, title: `AI donor segmentation & outreach`, desc: `Use AI to personalise donor communications at scale — right message, right donor, right time. Improve retention and average gift without growing the team.` },
+          { icon: `✍️`, title: `AI grant writing assistance`, desc: `Use AI to draft, refine, and repurpose funding applications. Significantly reduce the time burden on programme managers and fundraisers.` },
+          { icon: `📋`, title: `AI impact reporting`, desc: `Automate the synthesis of programme data into funder reports and social impact statements — freeing senior staff for relationship management.` },
+          { icon: `📐`, title: `Set mission-outcome KPIs`, desc: `Measure pilots against outcomes that matter: donor retention rate, applications submitted, staff hours saved, programme reach increased.` },
+        ],
+        outcome: `Live pilots demonstrating time savings and donor engagement lift`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works & Build Capability`,
+        summary: `Expand what's proven and develop internal confidence. For charities, capability-building is as important as the tools themselves.`,
+        actions: [
+          { icon: `🔁`, title: `Expand successful pilots`, desc: `Roll out donor personalisation across full database. Extend AI writing tools to comms, campaigns, and volunteer onboarding materials.` },
+          { icon: `🧠`, title: `AI literacy for all staff`, desc: `Ensure every team member — not just digital staff — can use AI tools effectively and understands appropriate and responsible use.` },
+          { icon: `🏗️`, title: `Designate an AI champion`, desc: `Appoint an internal lead for AI governance and development. In smaller charities this may be a part-time role rather than a dedicated hire.` },
+          { icon: `🔒`, title: `Develop an ethical AI policy`, desc: `Document how AI is used with beneficiary data, how decisions are made, and how the charity upholds GDPR, data ethics, and donor trust.` },
+        ],
+        outcome: `AI embedded across fundraising and programmes; staff confident`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as a Mission-Amplifying Organisation`,
+        summary: `AI becomes a strategic multiplier — enabling the charity to reach more people, raise more funds, and evidence more impact with the same team.`,
+        actions: [
+          { icon: `🔮`, title: `AI-informed programme design`, desc: `Use AI to analyse beneficiary data, identify unmet needs, and model the effectiveness of different programme interventions before committing resources.` },
+          { icon: `🌐`, title: `Proactive funder engagement`, desc: `Use AI to identify new grant opportunities, prepare tailored approaches, and maintain funder relationships with personalised, timely communication.` },
+          { icon: `📈`, title: `Impact measurement at board level`, desc: `Report AI's contribution to the mission: people reached, cost per impact unit, fundraising uplift, and staff capacity released for high-value work.` },
+          { icon: `♻️`, title: `Continuous responsible innovation`, desc: `Run annual reviews of AI tools against mission alignment and ethical standards. Remain open to emerging capabilities but grounded in charity values.` },
+        ],
+        outcome: `Greater mission impact delivered with the same or reduced resource`
+      }
+    ]
+  },
+
+  coaching: {
+    title: `Introducing AI into <span>Coaching, Search &amp; Business Services</span>`,
+    subtitle: `A phased action plan for the MD or Managing Partner to introduce AI — augmenting human expertise, accelerating knowledge work, and protecting the client relationships at the core of the business.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `In professional services, value is created by human insight and relationships. Audit where AI can handle the volume work — freeing consultants and coaches for the work that genuinely requires them.`,
+        actions: [
+          { icon: `🗺️`, title: `Map the service delivery chain`, desc: `Document every step from business development to project delivery and client reporting. Identify high-effort, lower-judgment tasks that consume consultant time.` },
+          { icon: `📊`, title: `Audit knowledge and data assets`, desc: `Review what intellectual capital exists — research libraries, past proposals, methodology documents, candidate profiles. These become AI training material.` },
+          { icon: `🧑‍💼`, title: `Benchmark sector competitors`, desc: `Identify how other firms are using AI in search, coaching, or consulting. The risk of inaction — competitors moving faster — is often the strongest business case.` },
+          { icon: `💬`, title: `Fee-earner listen sessions`, desc: `Talk to the people doing the work. Where do they spend time on admin, research, or repetitive drafting? Their pain points are your AI opportunity map.` },
+        ],
+        outcome: `A prioritised list of AI use cases grounded in fee-earner reality`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `In professional services, partners and senior consultants are the toughest audience. The MD must address the core anxiety: AI will cheapen or commoditise our service.`,
+        actions: [
+          { icon: `🏛️`, title: `Form a cross-practice AI group`, desc: `Include senior fee-earners alongside operations and IT. Partner buy-in is non-negotiable — resistance at this level kills adoption.` },
+          { icon: `🎯`, title: `Select 2–3 internal pilots first`, desc: `Start with back-office and productivity tools (not client-facing AI) to build confidence. Show colleagues AI enhances their quality, not replaces their judgement.` },
+          { icon: `💰`, title: `Size the productivity opportunity`, desc: `Model the time value of AI: if fee-earners recover 5 hours per week from AI-assisted drafting and research, what is that worth annually per head?` },
+          { icon: `📣`, title: `Frame AI as expertise amplification`, desc: `The firm's IP is its people's judgement. Communicate that AI handles the volume; consultants and coaches own the insight, relationships, and accountability.` },
+        ],
+        outcome: `Partner and senior team alignment; pilots agreed; narrative set`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Knowledge-work pilots that directly reduce the burden on fee-earners. These areas typically unlock the fastest return in professional services firms.`,
+        actions: [
+          { icon: `📝`, title: `AI proposal & pitch generation`, desc: `Use AI to draft first-cut proposals, executive summaries, and pitch decks from a brief. Consultants refine and personalise — not write from scratch.` },
+          { icon: `🔍`, title: `AI candidate or client matching`, desc: `For search firms: AI-assisted long-list generation and profile matching. For consultancies: AI to surface relevant past case studies and methodology.` },
+          { icon: `🎙️`, title: `AI meeting summarisation`, desc: `Automatically transcribe and summarise client meetings, coaching sessions, and briefing calls. Reduce admin time and improve follow-up quality.` },
+          { icon: `📐`, title: `Measure fee-earner time reclaimed`, desc: `Track hours saved per consultant per week as the primary KPI. Translate into billable capacity or service quality improvement to make the ROI tangible.` },
+        ],
+        outcome: `Fee-earners saving meaningful time within 90 days; quality maintained`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works & Build Capability`,
+        summary: `Expand proven tools and develop the internal capability to sustain and evolve AI use — without creating a two-speed firm where only some people benefit.`,
+        actions: [
+          { icon: `🔁`, title: `Extend AI tools across the firm`, desc: `Roll out proposal generation and meeting summarisation to all practice areas. Standardise prompting approaches for consistent quality across the team.` },
+          { icon: `🧠`, title: `Build prompt literacy firm-wide`, desc: `Every fee-earner should be able to direct AI tools effectively. Run structured sessions on prompt engineering, output review, and quality control.` },
+          { icon: `🏗️`, title: `Develop an AI knowledge base`, desc: `Systematically feed firm IP — methodologies, frameworks, case studies, templates — into AI tools. Build a proprietary capability competitors cannot replicate.` },
+          { icon: `🔒`, title: `Establish client data protocols`, desc: `Define clear rules: what client information can be input into AI tools, which vendors are approved, and how confidentiality obligations are maintained.` },
+        ],
+        outcome: `AI embedded in delivery model; firm IP systematically leveraged`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as an AI-Augmented Firm`,
+        summary: `AI becomes a source of competitive advantage — enabling the firm to deliver higher quality, at greater speed, while preserving the human relationships that clients pay for.`,
+        actions: [
+          { icon: `🔮`, title: `AI-enhanced client intelligence`, desc: `Use AI to synthesise market intelligence, track client news, and generate proactive insights — positioning fee-earners as trusted advisors, not just deliverers.` },
+          { icon: `🌐`, title: `AI-supported business development`, desc: `Identify new opportunities earlier using AI pipeline intelligence. Generate personalised outreach content at scale without losing the personal touch.` },
+          { icon: `📈`, title: `Report AI value at partner level`, desc: `Measure and communicate: proposals won rate improvement, time-to-delivery reduction, client satisfaction scores, and capacity freed for strategic work.` },
+          { icon: `♻️`, title: `Continuous practice evolution`, desc: `Build a culture of experimentation. Senior consultants should be testing new AI tools and bringing the best back to the firm — not waiting for IT to push tools down.` },
+        ],
+        outcome: `Faster, sharper delivery; firm IP continuously compounding via AI`
+      }
+    ]
+  },
+
+  insurance: {
+    title: `Introducing AI into <span>Insurance</span>`,
+    subtitle: `A phased action plan for the MD or COO to introduce AI responsibly — improving claims efficiency, underwriting quality, and customer experience while meeting FCA expectations and managing operational risk.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `Insurance is data-rich but complexity-heavy. The MD must identify where AI can improve speed and accuracy without introducing unacceptable regulatory or conduct risk.`,
+        actions: [
+          { icon: `🗺️`, title: `Map the insurance value chain`, desc: `Document every process from distribution and underwriting to claims handling and renewals. Flag high-volume, rules-based processes with low exception rates — prime AI territory.` },
+          { icon: `📊`, title: `Audit data quality and governance`, desc: `Review claims data, underwriting data, customer records, and fraud flags. Data lineage and quality are critical before any AI model is trained or deployed.` },
+          { icon: `⚖️`, title: `Assess the regulatory landscape`, desc: `Understand current FCA guidance on AI in financial services, Consumer Duty implications, and how the firm's existing risk frameworks apply to algorithmic decision-making.` },
+          { icon: `💬`, title: `Operations and compliance listen sessions`, desc: `Claims handlers, underwriters, and compliance officers understand the operational constraints. Their input is essential to avoid building AI that fails in practice.` },
+        ],
+        outcome: `A risk-tiered AI opportunity map with regulatory flags noted`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `Insurance boards and regulators require confidence that AI is being introduced with appropriate controls. The MD must set the tone: AI adoption is deliberate, governed, and customer-centric.`,
+        actions: [
+          { icon: `🏛️`, title: `Form an AI governance committee`, desc: `Include Risk, Compliance, Operations, Actuarial, and IT. This is not an innovation committee — it needs authority to approve, pause, or halt AI deployments.` },
+          { icon: `🎯`, title: `Select low-risk, high-value pilots`, desc: `Start with internal-facing AI (underwriting support tools, document summarisation) before customer-facing AI. Build confidence before raising regulatory exposure.` },
+          { icon: `💰`, title: `Build the investment case`, desc: `Model claims handling efficiency gains, underwriter productivity uplift, and fraud detection value. Insurance has clear unit economics that make ROI modelling straightforward.` },
+          { icon: `📣`, title: `Engage the regulator early`, desc: `Consider proactive engagement with the FCA sandbox or supervisory team. Early dialogue on your AI approach builds regulatory confidence and reduces future risk.` },
+        ],
+        outcome: `Governance structure in place; board mandate secured; regulator informed`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Prioritise pilots that improve operational throughput with clear human oversight. These areas offer early return in insurance with manageable risk.`,
+        actions: [
+          { icon: `📋`, title: `AI claims triage and routing`, desc: `Use AI to automatically categorise and route incoming claims by complexity and type — reducing first-response time and freeing handlers for complex cases.` },
+          { icon: `🔍`, title: `AI fraud detection support`, desc: `Deploy AI to flag anomalous claims patterns for human review. Position this as decision support, not automated rejection — maintaining conduct risk standards.` },
+          { icon: `📝`, title: `AI underwriting document analysis`, desc: `Use AI to extract key risk data from submission documents, pre-populate underwriter templates, and surface comparable risks — accelerating quote turnaround.` },
+          { icon: `📐`, title: `Audit trail from day one`, desc: `Every AI-assisted decision must be logged with the human reviewer who confirmed it. This is both good governance and your evidence file for the regulator.` },
+        ],
+        outcome: `Claims throughput improved; fraud flag rate up; audit trail clean`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works & Build Capability`,
+        summary: `Proven pilots are expanded with rigorous governance. The MD builds the internal capability to own and maintain AI responsibly — rather than outsourcing it entirely to vendors.`,
+        actions: [
+          { icon: `🔁`, title: `Expand claims and underwriting AI`, desc: `Roll out triage and document analysis across all lines of business. Extend fraud detection to renewals and mid-term adjustments.` },
+          { icon: `🧠`, title: `AI literacy for technical and non-technical staff`, desc: `Claims handlers, underwriters, and customer-facing staff all need structured training on working with AI tools and identifying when AI outputs should be questioned.` },
+          { icon: `🏗️`, title: `Build model risk management`, desc: `Establish a formal model validation process: how models are tested before deployment, how performance is monitored, and how model drift is detected and corrected.` },
+          { icon: `🔒`, title: `Consumer Duty AI compliance review`, desc: `Systematically review all customer-facing AI against FCA Consumer Duty outcomes. Document how AI delivers — not harms — fair value and good outcomes.` },
+        ],
+        outcome: `AI operational across core lines; model risk framework active`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as a Responsibly AI-Driven Insurer`,
+        summary: `AI becomes a genuine competitive differentiator — improving pricing accuracy, customer experience, and loss ratios while meeting the highest standards of regulatory compliance.`,
+        actions: [
+          { icon: `🔮`, title: `AI-enhanced pricing and risk selection`, desc: `Use advanced AI to improve risk segmentation and pricing accuracy. Engage actuarial and compliance early — this is high-value but requires the strongest governance.` },
+          { icon: `🌐`, title: `Personalised customer communications`, desc: `AI-powered renewal journeys, proactive claims updates, and personalised policy recommendations — improving retention and NPS without growing headcount.` },
+          { icon: `📈`, title: `AI performance reporting at board level`, desc: `Report: claims cost reduction, underwriting combined ratio improvement, fraud savings, customer satisfaction, and model risk incidents as standard board metrics.` },
+          { icon: `♻️`, title: `Continuous model governance cycle`, desc: `Institutionalise quarterly model performance reviews. Retire or retrain underperforming models. Stay ahead of FCA expectations as AI regulation evolves.` },
+        ],
+        outcome: `AI-driven competitive advantage; regulatory confidence established`
+      }
+    ]
+  }
+
+};
+
+// ─── RENDER ENGINE ────────────────────────────────────────────────────────────
+
+document.getElementById('industrySelect').addEventListener('change', function() {
+  var btn = document.getElementById('goBtn');
+  btn.disabled = !this.value;
+  btn.style.opacity = this.value ? '1' : '0.5';
+  btn.style.cursor = this.value ? 'pointer' : 'not-allowed';
+});
+
+function showRoadmap() {
+  const key = document.getElementById('industrySelect').value;
+  if (!key) return;
+  const data = industries[key];
+
+  document.getElementById('rm-title').innerHTML = data.title;
+  document.getElementById('rm-sub').textContent = data.subtitle;
+
+  const container = document.getElementById('phases-container');
+  container.innerHTML = '';
+
+  data.phases.forEach(phase => {
+    const phaseEl = document.createElement('div');
+    phaseEl.className = 'phase ' + phase.cls;
+    phaseEl.innerHTML = `
+      <div class="phase-label">
+        <div class="phase-num">${phase.num}</div>
+        <div class="phase-tag">${phase.tag}</div>
+        <div class="phase-time">${phase.time}</div>
+      </div>
+      <div class="spine">
+        <div class="dot"></div>
+        <div class="spine-line"></div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-title">${phase.title}</div>
+        <div class="phase-summary">${phase.summary}</div>
+        <div class="actions-grid">
+          ${phase.actions.map(a => `
+            <div class="action-card">
+              <span class="action-icon">${a.icon}</span>
+              <div class="action-title">${a.title}</div>
+              <div class="action-desc">${a.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="outcome">✦ Outcome: ${phase.outcome}</div>
+      </div>
+    `;
+    container.appendChild(phaseEl);
+  });
+
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('roadmap').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showLanding() {
+  document.getElementById('roadmap').style.display = 'none';
+  document.getElementById('landing').style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init button state
+(function() {
+  var btn = document.getElementById('goBtn');
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  btn.style.cursor = 'not-allowed';
+})();
+
+
+
+// ── Override showRoadmap to inject notes fields ──
+function tryShowRoadmap() {
+  var name = document.getElementById('attendeeName').value.trim();
+  var industry = document.getElementById('industrySelect').value;
+  var nameInput = document.getElementById('attendeeName');
+  var errDiv = document.getElementById('landing-error');
+
+  if (!name || !industry) {
+    errDiv.style.display = 'block';
+    if (!name) nameInput.classList.add('error');
+    return;
+  }
+  errDiv.style.display = 'none';
+  nameInput.classList.remove('error');
+  showRoadmap();
+}
+
+// Patch the change listener to also check name field
+document.getElementById('attendeeName').addEventListener('input', function() {
+  this.classList.remove('error');
+  updateGoBtn();
+});
+document.getElementById('industrySelect').addEventListener('change', updateGoBtn);
+
+function updateGoBtn() {
+  var name = document.getElementById('attendeeName').value.trim();
+  var industry = document.getElementById('industrySelect').value;
+  var btn = document.getElementById('goBtn');
+  var ready = name && industry;
+  btn.disabled = !ready;
+  btn.style.opacity = ready ? '1' : '0.4';
+}
+updateGoBtn();
+
+// Override original showRoadmap to also add notes + attendee info
+var _origShowRoadmap = showRoadmap;
+showRoadmap = function() {
+  _origShowRoadmap();
+
+  // Add notes textarea to each phase outcome
+  var phases = document.querySelectorAll('#phases-container .phase');
+  phases.forEach(function(ph, idx) {
+    var content = ph.querySelector('.phase-content');
+    if (!content) return;
+    var notesWrap = document.createElement('div');
+    notesWrap.className = 'notes-wrap';
+    notesWrap.innerHTML =
+      '<label class="notes-label">&#9998; Your notes for this phase</label>' +
+      '<textarea class="notes-area" id="notes_' + idx + '" placeholder="What actions will you take? What questions does this raise for your organisation?"></textarea>';
+    content.appendChild(notesWrap);
+  });
+
+  // Update attendee info in action bar
+  var name = document.getElementById('attendeeName').value.trim();
+  var company = document.getElementById('attendeeCompany').value.trim();
+  var industry = document.getElementById('industrySelect').value;
+  var industryLabel = document.querySelector('#industrySelect option[value="' + industry + '"]').textContent;
+  document.getElementById('action-attendee-info').innerHTML =
+    '<strong>' + escHtml(name) + '</strong>' +
+    (company ? ' &mdash; ' + escHtml(company) : '') +
+    '<br><span style="font-size:12px;">' + escHtml(industryLabel) + '</span>';
+};
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Collect all notes from the page ──
+function collectNotes() {
+  var notes = [];
+  var phases = document.querySelectorAll('#phases-container .phase');
+  phases.forEach(function(ph, idx) {
+    var tag  = ph.querySelector('.phase-tag')  ? ph.querySelector('.phase-tag').textContent  : '';
+    var title = ph.querySelector('.phase-title') ? ph.querySelector('.phase-title').textContent : '';
+    var outcome = ph.querySelector('.outcome')  ? ph.querySelector('.outcome').textContent    : '';
+    var ta = document.getElementById('notes_' + idx);
+    notes.push({ phase: (idx+1), tag: tag, title: title, outcome: outcome, notes: ta ? ta.value.trim() : '' });
+  });
+  return notes;
+}
+
+// ── SAVE — generates a print-friendly report and triggers browser print/save ──
+function saveReport() {
+  var name     = document.getElementById('attendeeName').value.trim();
+  var company  = document.getElementById('attendeeCompany').value.trim();
+  var industry = document.getElementById('industrySelect').value;
+  var industryLabel = document.querySelector('#industrySelect option[value="' + industry + '"]').textContent;
+  var notes    = collectNotes();
+  var date     = new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+
+  var rows = notes.map(function(n) {
+    return '<tr>' +
+      '<td style="padding:10px 14px;border-bottom:1px solid #e0e6f0;font-weight:700;color:#0A3B85;white-space:nowrap;">Phase ' + n.phase + ': ' + escHtml(n.tag) + '</td>' +
+      '<td style="padding:10px 14px;border-bottom:1px solid #e0e6f0;color:#333;">' + escHtml(n.title) + '</td>' +
+      '<td style="padding:10px 14px;border-bottom:1px solid #e0e6f0;font-size:12px;color:#5a6a82;">' + escHtml(n.outcome.replace('✦ Outcome: ','')) + '</td>' +
+      '<td style="padding:10px 14px;border-bottom:1px solid #e0e6f0;font-size:13px;">' + (n.notes ? escHtml(n.notes).replace(/\n/g,'<br>') : '<em style="color:#aaa">No notes entered</em>') + '</td>' +
+    '</tr>';
+  }).join('');
+
+  var reportHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
+    '<title>AI Roadmap — ' + escHtml(name) + '</title>' +
+    '<style>body{font-family:Arial,sans-serif;margin:40px;color:#222;} h1{color:#0A3B85;} h2{color:#00A3AD;font-size:15px;margin-top:0;} table{width:100%;border-collapse:collapse;} th{background:#0A3B85;color:#fff;padding:10px 14px;text-align:left;font-size:13px;} .meta{color:#5a6a82;font-size:13px;margin-bottom:28px;} .footer{margin-top:40px;font-size:11px;color:#999;border-top:1px solid #eee;padding-top:12px;}</style>' +
+    '</head><body>' +
+    '<h1>AI Strategy Roadmap &mdash; Personal Notes</h1>' +
+    '<div class="meta">' +
+      '<strong>Name:</strong> ' + escHtml(name) + (company ? '&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Organisation:</strong> ' + escHtml(company) : '') + '<br>' +
+      '<strong>Industry:</strong> ' + escHtml(industryLabel) + '&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Date:</strong> ' + date +
+    '</div>' +
+    '<table><thead><tr><th>Phase</th><th>Title</th><th>Outcome</th><th>My Notes</th></tr></thead><tbody>' +
+    rows +
+    '</tbody></table>' +
+    '<div class="footer">&copy; Andrew Gaule &amp; Denis Bidinost &nbsp;&nbsp;|&nbsp;&nbsp; Henley Business School, University of Reading &nbsp;&nbsp;|&nbsp;&nbsp; Where business comes to life</div>' +
+    '</body></html>';
+
+  // Open in new tab and trigger print
+  var win = window.open('', '_blank');
+  win.document.write(reportHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(function(){ win.print(); }, 600);
+}
+
+// ── SUBMIT — posts data to Google Apps Script ──
+function submitToSheets() {
+  if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    document.getElementById('submitStatus').className = 'submit-status err';
+    document.getElementById('submitStatus').textContent = 'Google Sheets not yet connected — see setup instructions.';
+    return;
+  }
+
+  var name     = document.getElementById('attendeeName').value.trim();
+  var company  = document.getElementById('attendeeCompany').value.trim();
+  var industry = document.getElementById('industrySelect').value;
+  var industryLabel = document.querySelector('#industrySelect option[value="' + industry + '"]').textContent;
+  var notes    = collectNotes();
+  var date     = new Date().toISOString();
+
+  var payload = { name: name, company: company, industry: industryLabel, date: date, notes: notes };
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+  document.getElementById('submitStatus').textContent = '';
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(function() {
+    btn.disabled = false;
+    btn.textContent = '✓ Submitted';
+    btn.style.background = '#00875a';
+    document.getElementById('submitStatus').className = 'submit-status ok';
+    document.getElementById('submitStatus').textContent = 'Your notes have been submitted successfully.';
+  })
+  .catch(function(err) {
+    btn.disabled = false;
+    btn.innerHTML = '&#9650; Submit to Google Sheets';
+    document.getElementById('submitStatus').className = 'submit-status err';
+    document.getElementById('submitStatus').textContent = 'Submission failed. Please try again or contact your programme director.';
+  });
+}
+</script>
+</body>
+</html>
