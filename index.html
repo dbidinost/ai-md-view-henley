@@ -214,6 +214,8 @@ body { background:var(--bg); color:var(--dark); font-family:'Source Sans 3',sans
       <option value="charity">Charity &amp; Not-for-Profit</option>
       <option value="coaching">Coaching, Search &amp; Business Services</option>
       <option value="insurance">Insurance</option>
+      <option value="education">Education</option>
+      <option value="construction">Construction</option>
     </select>
     <button class="go-btn" id="goBtn" onclick="tryShowRoadmap()">View My Roadmap &rarr;</button>
     <div id="landing-error" style="color:#c0392b;font-size:12px;margin-top:8px;display:none;">Please enter your name and select an industry.</div>
@@ -521,6 +523,141 @@ const industries = {
       }
     ]
   }
+,
+  education: {
+    title: `Introducing AI into <span>Education</span>`,
+    subtitle: `A phased action plan for the Principal, Vice-Chancellor, or CEO to introduce AI responsibly — improving learning outcomes, administrative efficiency, and staff capability while maintaining academic integrity.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `Education institutions hold rich data on learners but rarely exploit it systematically. Map where AI can genuinely improve outcomes rather than just automate administration.`,
+        actions: [
+          { icon: `🗺️`, title: `Map the learner journey end-to-end`, desc: `Document every touchpoint from enrolment to progression and outcome. Identify where delays, drop-outs, or disengagement occur — these are your highest-value AI intervention points.` },
+          { icon: `📊`, title: `Audit data assets and quality`, desc: `Review what student data exists — attendance, assessment, engagement, welfare referrals. Assess quality and governance. GDPR and safeguarding obligations make data hygiene non-negotiable.` },
+          { icon: `🧑‍💼`, title: `Benchmark peer institutions`, desc: `Review how comparable schools, colleges, or universities are deploying AI. Identify both the opportunities and the reputational risks others have encountered.` },
+          { icon: `💬`, title: `Listen sessions with staff and learners`, desc: `Teachers, lecturers, and support staff carry the operational burden. Learners know where friction lies. Both groups must shape the AI use-case list — not just senior leadership.` }
+        ],
+        outcome: `A prioritised longlist of 8–12 AI opportunities mapped to learner outcomes and staff workload`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `AI in education is politically sensitive. The leader must address academic integrity concerns, staff anxiety, and safeguarding obligations before any tool reaches a classroom or campus.`,
+        actions: [
+          { icon: `🏛️`, title: `Form an AI steering group`, desc: `Include academic leads, IT, student services, HR, and a student or learner representative. Governance must include those most affected by AI decisions.` },
+          { icon: `🎯`, title: `Establish an academic integrity policy first`, desc: `Define acceptable and unacceptable uses of generative AI by learners and staff before deployment. Ambiguity here creates serious institutional risk.` },
+          { icon: `💰`, title: `Identify funding and procurement routes`, desc: `Explore sector-specific funding opportunities and education-pricing from AI vendors. Assess total cost of ownership carefully — many tools have hidden implementation costs.` },
+          { icon: `📣`, title: `Communicate with transparency`, desc: `Staff fear AI will de-skill teaching or threaten jobs. Learners fear AI will undermine their qualifications. Address both directly — early, honestly, and repeatedly.` }
+        ],
+        outcome: `Governance structure agreed, integrity policy in place, pilots approved`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Start with pilots that reduce staff administrative burden or improve early identification of at-risk learners — the clearest win-win for institutions and learners alike.`,
+        actions: [
+          { icon: `⚠️`, title: `AI early-alert system for at-risk learners`, desc: `Use attendance, assessment, and engagement data to identify learners at risk of disengagement or drop-out earlier. Trigger timely human support — not automated intervention.` },
+          { icon: `✍️`, title: `AI-assisted marking and feedback support`, desc: `Pilot AI tools that help teachers generate first-draft feedback on written work, saving marking time. Teachers review, personalise, and approve — AI does not mark independently.` },
+          { icon: `📋`, title: `AI administrative automation`, desc: `Automate timetabling, report generation, and routine communications. Freeing staff from admin is consistently the highest-return, lowest-risk AI application in education.` },
+          { icon: `📐`, title: `Define outcome-based success metrics`, desc: `Measure pilots against what matters: learner progress, staff hours saved, welfare referral response time. Avoid technology vanity metrics that do not connect to educational outcomes.` }
+        ],
+        outcome: `Pilots live with measurable impact on staff workload or learner outcomes within 90 days`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works and Build Capability`,
+        summary: `Expand proven pilots with rigorous safeguarding and ethics oversight. Build staff confidence through training — not mandated tool adoption.`,
+        actions: [
+          { icon: `🔁`, title: `Expand early-alert and admin tools institution-wide`, desc: `Roll out proven interventions across all departments or year groups. Create shared protocols so AI outputs are used consistently and fairly across the institution.` },
+          { icon: `🧠`, title: `AI literacy programme for all staff`, desc: `Every teacher, lecturer, and support professional needs structured training — not just how to use tools, but how to evaluate AI outputs critically and maintain professional judgement.` },
+          { icon: `🏗️`, title: `Develop internal AI ownership`, desc: `Appoint a Head of Digital or AI Learning lead. Avoid over-reliance on a single vendor. Build capacity to evaluate, switch, and challenge AI tools as the market matures.` },
+          { icon: `🔒`, title: `Strengthen safeguarding and data governance`, desc: `Review all AI tools against safeguarding obligations, GDPR, and the specific vulnerabilities of your learner population. Children and vulnerable adults require the highest standard of data protection.` }
+        ],
+        outcome: `AI embedded in operations; staff confident and capability growing across the institution`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as a Future-Ready Institution`,
+        summary: `AI becomes a genuine enabler of educational excellence — improving personalised learning, institutional effectiveness, and preparing learners for an AI-shaped world of work.`,
+        actions: [
+          { icon: `🔮`, title: `Personalised learning at scale`, desc: `Use AI to adapt content, pacing, and support to individual learner needs — moving beyond one-size-fits-all delivery toward genuinely responsive education.` },
+          { icon: `🌐`, title: `Prepare learners for the AI economy`, desc: `Embed AI literacy, critical thinking about AI, and human-AI collaboration skills across the curriculum. The greatest AI contribution may be how well the institution prepares its learners.` },
+          { icon: `📈`, title: `AI impact reporting at board level`, desc: `Report AI contribution to outcomes: completion rates, progression, staff retention, learner satisfaction, and safeguarding response times. Make the case for continued investment.` },
+          { icon: `♻️`, title: `Continuous ethical review`, desc: `Run annual reviews of all AI tools against educational values, safeguarding obligations, and evolving regulation. Exit tools that no longer serve learners or compromise institutional integrity.` }
+        ],
+        outcome: `AI-enabled learning outcomes and institutional effectiveness; learners equipped for the AI era`
+      }
+    ]
+  },
+
+  construction: {
+    title: `Introducing AI into <span>Construction</span>`,
+    subtitle: `A phased action plan for the MD or Operations Director to introduce AI — improving project delivery, cost control, safety, and tendering capability across a complex, site-based business.`,
+    phases: [
+      {
+        num: `01`, tag: `Diagnose`, time: `Months 1–2`, cls: `ph1`,
+        title: `Understand the Baseline`,
+        summary: `Construction is data-rich but data-poor in practice — vast amounts of project information exist in silos, on paper, or in individuals' heads. The MD must identify where AI can surface this value before investing in new systems.`,
+        actions: [
+          { icon: `🗺️`, title: `Map the project delivery lifecycle`, desc: `Document every stage from bid and pre-construction through site delivery to handover. Flag the highest-cost failure points: delays, rework, procurement errors, and safety incidents.` },
+          { icon: `📊`, title: `Audit project and operational data`, desc: `Assess what data exists across estimating, procurement, programme management, and site operations. Most firms are surprised by how much they hold — and how fragmented it is.` },
+          { icon: `🧑‍💼`, title: `Benchmark competitors and innovators`, desc: `Review how leading contractors are using AI in estimating, design coordination, and site safety. Identify where falling behind creates commercial or reputational risk.` },
+          { icon: `💬`, title: `Listen sessions with site and office teams`, desc: `Quantity surveyors, project managers, and site supervisors know exactly where time is wasted and errors recur. Their priorities must drive the AI use-case shortlist.` }
+        ],
+        outcome: `A prioritised AI opportunity map across estimating, delivery, and safety functions`
+      },
+      {
+        num: `02`, tag: `Align`, time: `Months 2–3`, cls: `ph2`,
+        title: `Build the Leadership Mandate`,
+        summary: `Construction culture is practical and sceptical of office-led technology initiatives. The MD must frame AI in terms of margin, delivery, and safety — not digital transformation.`,
+        actions: [
+          { icon: `🏛️`, title: `Form a cross-functional AI working group`, desc: `Include commercial, operations, IT, and a site-level representative. Without operational buy-in from project managers and site supervisors, AI tools will not be adopted on the ground.` },
+          { icon: `🎯`, title: `Select 2–3 commercially-grounded pilots`, desc: `Prioritise use cases with direct impact on margin or programme: estimating accuracy, procurement cost, or safety incident reduction. Frame every pilot in terms the commercial team understands.` },
+          { icon: `💰`, title: `Build the commercial case`, desc: `Model the margin impact: a 2% improvement in estimating accuracy or a 10% reduction in material waste has a quantifiable value. AI investment must compete with other capital allocation decisions.` },
+          { icon: `📣`, title: `Address the workforce directly`, desc: `Site teams fear surveillance and job threat more than most. Be explicit: AI is being introduced to reduce paperwork, improve safety, and win more work — not to monitor individuals or cut headcount.` }
+        ],
+        outcome: `Cross-functional mandate secured, commercial case approved, pilot scope agreed`
+      },
+      {
+        num: `03`, tag: `Pilot`, time: `Months 3–8`, cls: `ph3`,
+        title: `Run Focused Pilots`,
+        summary: `Prioritise pilots that directly improve margin or safety — the two metrics that resonate most powerfully with construction leadership and clients alike.`,
+        actions: [
+          { icon: `📋`, title: `AI-assisted estimating and tendering`, desc: `Use AI to analyse historical project data, benchmark costs, and generate first-draft bills of quantities. Reduce estimating time and improve accuracy on competitive bids.` },
+          { icon: `🦺`, title: `AI site safety monitoring`, desc: `Deploy computer vision on site cameras to detect PPE compliance, unsafe behaviours, and hazardous conditions in real time. Alert site managers before incidents occur — not after.` },
+          { icon: `📦`, title: `AI procurement and materials optimisation`, desc: `Use AI to forecast material requirements, reduce over-ordering, and flag supplier price anomalies. Small reductions in waste and procurement cost compound significantly across a project portfolio.` },
+          { icon: `📐`, title: `Measure margin and safety KPIs`, desc: `Track estimating hit rate, cost variance at completion, safety observation frequency, and near-miss reporting rate. These are the metrics that will justify scaling investment.` }
+        ],
+        outcome: `Measurable improvement in estimating accuracy or safety compliance within 90 days`
+      },
+      {
+        num: `04`, tag: `Scale`, time: `Months 8–18`, cls: `ph4`,
+        title: `Scale What Works and Build Capability`,
+        summary: `Expand proven tools across the project portfolio and build the internal capability to sustain AI independently — without relying on individual champions or single vendors.`,
+        actions: [
+          { icon: `🔁`, title: `Roll out estimating and safety tools across all projects`, desc: `Standardise AI-assisted estimating across the commercial team. Extend safety monitoring to all active sites. Create shared protocols so tools are used consistently across the portfolio.` },
+          { icon: `🧠`, title: `AI literacy for office and site teams`, desc: `Structured training for QSs, project managers, and site supervisors — focused on using AI outputs critically, not just accepting them. Human judgement remains the final check on every decision.` },
+          { icon: `🏗️`, title: `Integrate AI into project management systems`, desc: `Connect AI tools to existing ERP, programme management, and document control systems. Isolated AI tools that require manual data entry will be abandoned on site.` },
+          { icon: `🔒`, title: `Data governance and worker privacy`, desc: `Site-based AI — especially camera systems — raises significant data protection and worker privacy obligations. Document the legal basis for data collection, retention, and worker notification.` }
+        ],
+        outcome: `AI operational across the project portfolio; integrated with core systems; staff trained`
+      },
+      {
+        num: `05`, tag: `Lead`, time: `Month 18+`, cls: `ph5`,
+        title: `Lead as an AI-Enabled Contractor`,
+        summary: `AI becomes a genuine source of competitive advantage — improving win rates, protecting margins, and differentiating the firm on safety and delivery performance in a crowded market.`,
+        actions: [
+          { icon: `🔮`, title: `AI-enhanced design coordination and clash detection`, desc: `Use AI integrated with BIM to identify design clashes, programme conflicts, and buildability issues earlier — reducing costly on-site redesign and programme delay.` },
+          { icon: `🌐`, title: `Predictive project risk management`, desc: `Use AI to analyse programme, weather, supply chain, and subcontractor data to flag project risks before they materialise. Move from reactive problem-solving to proactive risk mitigation.` },
+          { icon: `📈`, title: `AI performance reporting at board level`, desc: `Report AI contribution: tender win rate improvement, cost variance reduction, safety incident frequency, and programme delivery performance. Connect AI investment to strategic KPIs.` },
+          { icon: `♻️`, title: `Continuous improvement culture`, desc: `Embed lessons-learned data from every project into AI models. The firm that systematically learns from its project history builds an estimating and delivery capability competitors cannot easily replicate.` }
+        ],
+        outcome: `AI-driven competitive advantage in tendering, delivery, and safety performance`
+      }
+    ]
+  }
+
 
 };
 
